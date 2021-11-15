@@ -7,6 +7,9 @@ import { View, Platform } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
+// import { SafeAreaView } from "react-native";
+import Contact from "./Contact";
+import About from "./About";
 
 const DirectoryNavigator = createStackNavigator(
   {
@@ -27,9 +30,9 @@ const DirectoryNavigator = createStackNavigator(
   }
 );
 
-const HomeNavigator = createStackNavigator(
+const AboutNavigator = createStackNavigator(
   {
-    Home: { screen: Home },
+    About: { screen: About },
   },
   {
     defaultNavigationOptions: {
@@ -44,10 +47,47 @@ const HomeNavigator = createStackNavigator(
   }
 );
 
+const ContactNavigator = createStackNavigator(
+  {
+    Contact: { screen: Contact },
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#5637DD",
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        color: "#fff",
+      },
+    },
+  }
+);
+
+const HomeNavigator = createStackNavigator(
+  {
+    Home: { screen: Home },
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#5637DD",
+        // paddingTop: 40,
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        color: "#fff",
+      },
+    },
+  }
+);
+
 const MainNavigator = createDrawerNavigator(
   {
     Home: { screen: HomeNavigator },
     Directory: { screen: DirectoryNavigator },
+    Contact: { screen: ContactNavigator },
+    About: { screen: AboutNavigator },
   },
   {
     drawerBackgroundColor: "#CEC8FF",
@@ -71,6 +111,7 @@ class Main extends Component {
 
   render() {
     return (
+      // <SafeAreaView>
       <View
         style={{
           flex: 1,
@@ -90,6 +131,7 @@ class Main extends Component {
           }
         /> */}
       </View>
+      // </SafeAreaView>
     );
   }
 }
