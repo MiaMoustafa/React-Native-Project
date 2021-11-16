@@ -11,14 +11,26 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import Contact from "./Contact";
+import About from "./About";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import { Icon } from "react-native-elements";
 import SafeAreaView from "react-native-safe-area-view";
-// import { SafeAreaView } from "react-native";
-import Contact from "./Contact";
-import About from "./About";
+import {
+  fetchCampsites,
+  fetchComments,
+  fetchPromotions,
+  fetchPartners,
+} from "../redux/ActionCreators";
+import { connect } from "react-redux";
+const mapDispatchToProps = {
+  fetchCampsites,
+  fetchComments,
+  fetchPromotions,
+  fetchPartners,
+};
 
 const DirectoryNavigator = createStackNavigator(
   {
@@ -212,6 +224,13 @@ class Main extends Component {
   //   };
   // }
 
+  componentDidMount() {
+    this.props.fetchCampsites();
+    this.props.fetchComments();
+    this.props.fetchPromotions();
+    this.props.fetchPartners();
+  }
+
   // onCampsiteSelect(campsiteId) {
   //   this.setState({ selectedCampsite: campsiteId });
   // }
@@ -271,4 +290,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Main;
+export default connect(null, mapDispatchToProps)(Main);
