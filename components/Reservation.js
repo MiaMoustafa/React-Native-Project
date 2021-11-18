@@ -8,6 +8,7 @@ import {
   Switch,
   Button,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -20,6 +21,7 @@ class Reservation extends Component {
       hikeIn: false,
       date: new Date(),
       showCalendar: false,
+      showModal: false,
     };
   }
 
@@ -27,13 +29,22 @@ class Reservation extends Component {
     title: "Reserve Campsite",
   };
 
+  toggleModal() {
+    this.setState({ showModal: !this.state.showModal });
+  }
+
   handleReservation() {
     console.log(JSON.stringify(this.state));
+    this.toggleModal();
+  }
+
+  resetForm() {
     this.setState({
       campers: 1,
       hikeIn: false,
       date: new Date(),
       showCalendar: false,
+      showModal: false,
     });
   }
 
@@ -95,6 +106,34 @@ class Reservation extends Component {
             <Text style={styles.loginText}>Search</Text>
           </TouchableOpacity>
         </View>
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.showModal}
+          onRequestClose={() => this.toggleModal()}
+        >
+          <View style={styles.modal}>
+            <Text style={styles.modalTitle}>Search Campsite Reservations</Text>
+            <Text style={styles.modalText}>
+              Number of Campers: {this.state.campers}
+            </Text>
+            <Text style={styles.modalText}>
+              Hike-In?: {this.state.hikeIn ? "Yes" : "No"}
+            </Text>
+            <Text style={styles.modalText}>
+              Date: {this.state.date.toLocaleDateString("en-US")}
+            </Text>
+            <TouchableOpacity
+              style={styles.loginScreenButton}
+              onPress={() => {
+                this.toggleModal();
+                this.resetForm();
+              }}
+            >
+              <Text style={styles.loginText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </ScrollView>
     );
   }
@@ -131,6 +170,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  modal: {
+    justifyContent: "center",
+    margin: 20,
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    backgroundColor: "#5637DD",
+    textAlign: "center",
+    color: "#fff",
+    marginBottom: 20,
+  },
+  modalText: {
+    fontSize: 18,
+    margin: 10,
   },
 });
 
