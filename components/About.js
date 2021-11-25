@@ -6,6 +6,7 @@ import { FlatList } from "react-native";
 import { ListItem } from "react-native-elements";
 import { connect } from "react-redux";
 import { baseUrl } from "../shared/baseUrl";
+import * as Animatable from "react-native-animatable";
 import Loading from "./Loading";
 
 const mapStateToProps = (state) => {
@@ -38,10 +39,12 @@ class About extends Component {
     if (this.props.partners.isLoading) {
       return (
         <ScrollView>
-          <Mission />
-          <Card title="Community Partners">
-            <Loading />
-          </Card>
+          <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+            <Mission />
+            <Card title="Community Partners">
+              <Loading />
+            </Card>
+          </Animatable.View>
         </ScrollView>
       );
     }
@@ -58,14 +61,16 @@ class About extends Component {
 
     return (
       <ScrollView>
-        <Mission />
-        <Card title="Community Partners">
-          <FlatList
-            data={this.props.partners.partners}
-            renderItem={renderPartner}
-            keyExtractor={(item) => item.id.toString()}
-          />
-        </Card>
+        <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+          <Mission />
+          <Card title="Community Partners">
+            <FlatList
+              data={this.props.partners.partners}
+              renderItem={renderPartner}
+              keyExtractor={(item) => item.id.toString()}
+            />
+          </Card>
+        </Animatable.View>
       </ScrollView>
     );
   }
