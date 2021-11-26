@@ -36,7 +36,7 @@ const mapDispatchToProps = {
 function RenderCampsite(props) {
   const { campsite } = props;
 
-  const recognizeDrag = ({ dx }) => (dx < -200 ? true : false);
+  const recognizeDrag = ({ dx }) => (dx < -50 ? true : false);
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
